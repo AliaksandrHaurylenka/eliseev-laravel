@@ -22,7 +22,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    // protected $redirectTo = '/home';
+    protected $redirectTo = '/home';
 
    
     public function __construct()
@@ -55,7 +55,8 @@ class LoginController extends Controller
             $user = Auth::user();
             if ($user->status !== User::STATUS_ACTIVE) {
                 Auth::logout();
-                return back()->with('error', 'You need to confirm your account. Please check your email.');
+                flash('You need to confirm your account. Please check your email.')->error();
+                return back();
             }
 
             return redirect()->intended(route('cabinet'));

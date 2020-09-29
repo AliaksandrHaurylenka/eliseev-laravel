@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+// use Illuminate\Support\Facades\Validator;
 use App\Mail\Auth\VerifyMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Auth\Events\Registered;

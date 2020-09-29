@@ -6,7 +6,7 @@ use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;//поставить письма в очередь
+//use Illuminate\Contracts\Queue\ShouldQueue;//поставить письма в очередь
 
 class VerifyMail extends Mailable
 {
