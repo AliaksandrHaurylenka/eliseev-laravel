@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-//use App\Entity\User;
-use App\User;
+use App\Entity\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 // use Illuminate\Support\Facades\Validator;
@@ -11,8 +10,7 @@ use App\Mail\Auth\VerifyMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-//use App\Http\Requests\Auth\RegisterRequest;
+use App\Http\Requests\Auth\RegisterRequest;
 
 class RegisterController extends Controller
 {
@@ -32,8 +30,7 @@ class RegisterController extends Controller
         return view('auth.register');
     }
 
-//    public function register(RegisterRequest $request)
-    public function register(Request $request)
+   public function register(RegisterRequest $request)
     {
         $user = User::create([
             'name' => $request['name'],
