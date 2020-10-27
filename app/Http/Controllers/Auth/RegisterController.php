@@ -32,13 +32,11 @@ class RegisterController extends Controller
 
    public function register(RegisterRequest $request)
     {
-        $user = User::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-            'verify_token' => Str::random(),
-            'status' => User::STATUS_WAIT,
-        ]);
+        $user = User::register(
+            $request['name'],
+            $request['email'],
+            $request['password']
+        );
 
 
         Mail::to($user->email)->send(new VerifyMail($user));
@@ -56,17 +54,18 @@ class RegisterController extends Controller
                 ->with('error', 'Sorry your link cannot be identified.');
         }
 
-        if ($user->status !== User::STATUS_WAIT) {
-            return redirect()->route('login')
-                ->with('error', 'Your email is alredy verified.');
+        try {
+            $user->verify();
+            flash('Your e-mail is verified. You can now login.')->success();
+            return redirect()->route('login');
+        } catch (\DomainException $e) {
+            flash($e->getMessage())->error();
+            return redirect()->route('login');
         }
+        
 
-        $user->status = User::STATUS_ACTIVE;
-        $user->verify_token = null;
-        $user->save();
+        
 
-        flash('Your e-mail is verified. You can now login.')->success();
-
-        return redirect()->route('login');
+        
     }
 }
