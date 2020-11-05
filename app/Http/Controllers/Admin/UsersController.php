@@ -8,9 +8,19 @@ use Illuminate\Validation\Rule;
 use App\Http\Requests\Auth\UpdateUsersRequest;
 use App\Http\Requests\Auth\StoreUsersRequest;
 use Illuminate\Support\Str;
+use App\UseCases\Auth\RegisterService;
 
 class UsersController extends Controller
 {
+
+    private $register;
+
+    public function __construct(RegisterService $register)
+    {
+        $this->register = $register;
+        // $this->middleware('can:manage-users');
+    }
+
     
     public function index()
     {
@@ -29,10 +39,10 @@ class UsersController extends Controller
     // public function store(Request $request)
     public function store(StoreUsersRequest $request)
     {
-        $user = User::create($request->only(['name', 'email']) + [
-            'password' => bcrypt(Str::random()),
-            'status' => User::STATUS_ACTIVE,
-        ]);
+        $user = User::new(
+            $request['name'],
+            $request['email']
+        );
 
         return redirect()->route('admin.users.show', $user);
     }
@@ -47,12 +57,7 @@ class UsersController extends Controller
     
     public function edit(User $user)
     {
-        $statuses = [
-            User::STATUS_WAIT => 'Waiting',
-            User::STATUS_ACTIVE => 'Active',
-        ];
-
-        return view('admin.users.edit', compact('user', 'statuses'));
+        return view('admin.users.edit', compact('user'));
     }
 
    
@@ -70,5 +75,13 @@ class UsersController extends Controller
         $user->delete();
 
         return redirect()->route('admin.users.index');
+    }
+
+
+    public function verify(User $user)
+    {
+        $this->register->verify($user->id);
+
+        return redirect()->route('admin.users.show', $user);
     }
 }
