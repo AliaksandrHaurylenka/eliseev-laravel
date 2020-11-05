@@ -38,6 +38,7 @@ class RegisterService
 
     public function verify($id): void
     {
+		//dd($id);
         /** @var User $user */
         $user = User::findOrFail($id);
         $user->verify();
