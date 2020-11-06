@@ -12,14 +12,14 @@ use Illuminate\Support\Facades\Mail;
 
 class RegisterService
 {
-    // private $mailer;
-    // private $dispatcher;
+    private $mailer;
+    private $dispatcher;
 
-    // public function __construct(Mailer $mailer, Dispatcher $dispatcher)
-    // {
-    //     $this->mailer = $mailer;
-    //     $this->dispatcher = $dispatcher;
-    // }
+    public function __construct(Mailer $mailer, Dispatcher $dispatcher)
+    {
+        $this->mailer = $mailer;
+        $this->dispatcher = $dispatcher;
+    }
 
     public function register(RegisterRequest $request): void
     {
@@ -29,11 +29,8 @@ class RegisterService
             $request['password']
         );
 
-        Mail::to($user->email)->send(new VerifyMail($user));
-        event(new Registered($user));
-
-        // $this->mailer->to($user->email)->send(new VerifyMail($user));
-        // $this->dispatcher->dispatch(new Registered($user));
+        $this->mailer->to($user->email)->send(new VerifyMail($user));
+        $this->dispatcher->dispatch(new Registered($user));
     }
 
     public function verify($id): void
