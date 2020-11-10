@@ -13,13 +13,13 @@ class User extends Authenticatable
     public const STATUS_WAIT = 'wait';
     public const STATUS_ACTIVE = 'active';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    public const ROLE_USER = 'user';
+    public const ROLE_MODERATOR = 'moderator';
+    public const ROLE_ADMIN = 'admin';
+
+    
     protected $fillable = [
-        'name', 'email', 'password', 'status', 'verify_token'
+        'name', 'email', 'password', 'status', 'verify_token', 'role'
     ];
 
     /**
@@ -38,7 +38,7 @@ class User extends Authenticatable
             'email' => $email,
             'password' => bcrypt($password),
             'verify_token' => Str::uuid(),
-            // 'role' => self::ROLE_USER,
+            'role' => self::ROLE_USER,
             'status' => self::STATUS_WAIT,
         ]);
     }
@@ -49,7 +49,7 @@ class User extends Authenticatable
             'name' => $name,
             'email' => $email,
             'password' => bcrypt(Str::random()),
-            // 'role' => self::ROLE_USER,
+            'role' => self::ROLE_USER,
             'status' => self::STATUS_ACTIVE,
         ]);
     }
@@ -74,5 +74,33 @@ class User extends Authenticatable
             'status' => self::STATUS_ACTIVE,
             'verify_token' => null,
         ]);
+    }
+
+
+    public function isAdmin(): bool
+    {
+        return $this->role === self::ROLE_ADMIN;
+    }
+
+
+    public function changeRole($role): void
+    {
+        if (!array_key_exists($role, self::rolesList())) {
+            throw new \InvalidArgumentException('Undefined role "' . $role . '"');
+        }
+        if ($this->role === $role) {
+            throw new \DomainException('Role is already assigned.');
+        }
+        $this->update(['role' => $role]);
+    }
+
+
+    public static function rolesList(): array
+    {
+        return [
+            self::ROLE_USER => 'User',
+            //self::ROLE_MODERATOR => 'Moderator',
+            self::ROLE_ADMIN => 'Admin',
+        ];
     }
 }
