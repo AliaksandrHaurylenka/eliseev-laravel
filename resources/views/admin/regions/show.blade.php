@@ -26,9 +26,9 @@
             <tr>
                 <th>Name</th><td>{{ $region->name }}</td>
             </tr>
-            <tr>
+            {{-- <tr>
                 <th>Slug</th><td>{{ $region->slug }}</td>
-            </tr>
+            </tr> --}}
             <tr>
                 <th>Parent</th><td>{{ $region->parent ? $region->parent->name : "" }}</td>
             </tr>
