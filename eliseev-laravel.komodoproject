@@ -2,5 +2,8 @@
 <!-- Komodo Project File - DO NOT EDIT -->
 <project id="747d3836-7f5c-403f-8c82-ca0c5ae00382" kpf_version="5" name="eliseev-laravel.komodoproject">
 <preference-set idref="747d3836-7f5c-403f-8c82-ca0c5ae00382" id="project" preftype="project">
+  <long id="codeintel.scanner.max_depth">10</long>
+  <string id="import_exclude_matches">*.*~;*.bak;*.tmp;CVS;.#*;*.pyo;*.pyc;.svn;_svn;.git;.hg;.bzr;*%25*;tmp*.html;.DS_Store;*.swp;*.kpf;*.komodoproject;.komodotools;__pycache__</string>
+  <long id="prefs_version">1</long>
 </preference-set>
 </project>
