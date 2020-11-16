@@ -7,7 +7,7 @@
 @section('content')
     @include('admin.regions._nav')
 
-    <form method="POST" action="{{ route('admin.regions.store') }}">
+    <form method="POST" action="{{ route('admin.regions.store', ['parent' => $parent ? $parent->id : null]) }}">
         @csrf
 
         <div class="form-group">
