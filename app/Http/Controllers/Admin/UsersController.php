@@ -22,7 +22,7 @@ class UsersController extends Controller
         // $this->middleware('can:manage-users');
     }
 
-    
+
     public function index(Request $request)
     {
         $query = User::orderByDesc('id');
@@ -59,13 +59,13 @@ class UsersController extends Controller
         return view('admin.users.index', compact('users', 'statuses', 'roles'));
     }
 
-    
+
     public function create()
     {
         return view('admin.users.create');
     }
 
-    
+
     // public function store(Request $request)
     public function store(StoreUsersRequest $request)
     {
@@ -77,14 +77,14 @@ class UsersController extends Controller
         return redirect()->route('admin.users.show', $user);
     }
 
-    
+
     public function show(User $user)
     {
         // dd($user);
         return view('admin.users.show', compact('user'));
     }
 
-    
+
     public function edit(User $user)
     {
         $roles = User::rolesList();
@@ -92,8 +92,8 @@ class UsersController extends Controller
         return view('admin.users.edit', compact('user', 'roles'));
     }
 
-   
-    
+
+
     public function update(UpdateUsersRequest $request, User $user)
     {
         $user->update($request->only(['name', 'email']));
@@ -105,7 +105,7 @@ class UsersController extends Controller
         return redirect()->route('admin.users.show', $user);
     }
 
-    
+
     public function destroy(User $user)
     {
         $user->delete();

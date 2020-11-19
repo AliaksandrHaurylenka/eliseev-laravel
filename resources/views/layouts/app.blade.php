@@ -16,7 +16,7 @@
 
     <!-- Styles -->
     <link href="{{ mix('css/app.css', 'build') }}" rel="stylesheet">
-    
+
 </head>
 <body id="app">
     <header>
@@ -74,9 +74,9 @@
 
     <main class="app-content py-3">
         <div class="container">
+        	@section('breadcrumbs', Breadcrumbs::render())
             @yield('breadcrumbs')
             @include('flash::message')
-            {{-- @include('layouts.partials.flash') --}}
             @yield('content')
         </div>
 
@@ -93,7 +93,7 @@
 
     <!-- Scripts -->
     <script src="{{ mix('js/app.js', 'build') }}" defer></script>
-    
-    
+
+
 </body>
 </html>
