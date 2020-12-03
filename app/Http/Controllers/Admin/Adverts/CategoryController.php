@@ -48,10 +48,10 @@ class CategoryController extends Controller
     {
 //        dd($category);
         //$parentAttributes = $category->parentAttributes();
-//        $attributes = $category->attributes()->orderBy('sort')->get();
+        $attributes = $category->attributes()->orderBy('sort')->get();
 //
 //        return view('admin.adverts.categories.show', compact('category', 'attributes', 'parentAttributes'));
-        return view('admin.adverts.categories.show', compact('category'));
+        return view('admin.adverts.categories.show', compact('category', 'attributes'));
     }
 
     public function edit(Category $category)
