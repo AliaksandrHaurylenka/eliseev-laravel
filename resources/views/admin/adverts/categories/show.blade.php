@@ -27,7 +27,7 @@
         </tbody>
     </table>
 
-    {{--<p><a href="{{ route('admin.adverts.categories.attributes.create', $category) }}" class="btn btn-success">Add Attribute</a></p>
+    <p><a href="{{ route('admin.adverts.categories.attributes.create', $category) }}" class="btn btn-success">Add Attribute</a></p>
 
     <table class="table table-bordered">
         <thead>
@@ -40,7 +40,7 @@
         </thead>
         <tbody>
 
-        <tr><th colspan="4">Parent attributes</th></tr>
+        {{--<tr><th colspan="4">Parent attributes</th></tr>
 
         @forelse ($parentAttributes as $attribute)
             <tr>
@@ -51,7 +51,7 @@
             </tr>
         @empty
             <tr><td colspan="4">None</td></tr>
-        @endforelse
+        @endforelse--}}
 
         <tr><th colspan="4">Own attributes</th></tr>
 
@@ -69,5 +69,5 @@
         @endforelse
 
         </tbody>
-    </table>--}}
+    </table>
 @endsection

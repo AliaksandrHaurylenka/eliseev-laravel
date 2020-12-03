@@ -4,6 +4,7 @@ use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator as Crumbs;
 use App\Entity\User;
 use App\Entity\Region;
 use App\Entity\Adverts\Category;
+use App\Entity\Adverts\Attribute;
 
 Breadcrumbs::register('home', function (Crumbs $crumbs) {
     $crumbs->push('Home', route('home'));
