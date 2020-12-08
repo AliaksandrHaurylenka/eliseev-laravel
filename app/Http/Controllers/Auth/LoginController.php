@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
-    
+
 
     use ThrottlesLogins;
 
@@ -23,7 +23,7 @@ class LoginController extends Controller
      */
     protected $redirectTo = '/home';
 
-   
+
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
@@ -53,11 +53,11 @@ class LoginController extends Controller
             $user = Auth::user();
             if ($user->status !== User::STATUS_ACTIVE) {
                 Auth::logout();
-                flash('You need to confirm your account. Please check your email.')->error();
-                return back();
+                // flash('You need to confirm your account. Please check your email.')->error();
+                return back()->with('error', 'You need to confirm your account. Please check your email.');
             }
 
-            return redirect()->intended(route('cabinet'));
+            return redirect()->intended(route('cabinet.home'));
         }
 
         $this->incrementLoginAttempts($request);

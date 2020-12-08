@@ -47,11 +47,10 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
 //        dd($category);
-        //$parentAttributes = $category->parentAttributes();
+        $parentAttributes = $category->parentAttributes();
         $attributes = $category->attributes()->orderBy('sort')->get();
-//
-//        return view('admin.adverts.categories.show', compact('category', 'attributes', 'parentAttributes'));
-        return view('admin.adverts.categories.show', compact('category', 'attributes'));
+
+       return view('admin.adverts.categories.show', compact('category', 'attributes', 'parentAttributes'));
     }
 
     public function edit(Category $category)
