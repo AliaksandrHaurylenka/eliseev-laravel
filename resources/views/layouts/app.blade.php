@@ -77,6 +77,7 @@
         	@section('breadcrumbs', Breadcrumbs::render())
             @yield('breadcrumbs')
             @include('flash::message')
+            @include('layouts.partials.flash')
             @yield('content')
         </div>
 

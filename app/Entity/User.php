@@ -2,10 +2,13 @@
 
 namespace App\Entity;
 
+use App\Entity\Adverts\Advert\Advert;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Str;
-use Carbon\Carbon;
+use Laravel\Passport\HasApiTokens;
 
 /**
  * @property int $id
@@ -38,9 +41,9 @@ class User extends Authenticatable
     public const ROLE_MODERATOR = 'moderator';
     public const ROLE_ADMIN = 'admin';
 
-    
+
     protected $fillable = [
-        'name', 'last_name', 'email', 'password', 'status', 'verify_token', 'role'
+        'name', 'last_name', 'email', 'phone', 'password', 'status', 'verify_token', 'role'
     ];
 
     /**
@@ -50,6 +53,13 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password', 'remember_token',
+    ];
+
+
+    protected $casts = [
+        'phone_verified' => 'boolean',
+        'phone_verify_token_expire' => 'datetime',
+        'phone_auth' => 'boolean',
     ];
 
     public static function register(string $name, string $email, string $password): self
@@ -124,15 +134,15 @@ class User extends Authenticatable
             self::ROLE_ADMIN => 'Admin',
         ];
     }
-	
-	
-	
+
+
+
 	public function unverifyPhone(): void
     {
         $this->phone_verified = false;
         $this->phone_verify_token = null;
         $this->phone_verify_token_expire = null;
-        $this->phone_auth = false;
+        //$this->phone_auth = false;
         $this->saveOrFail();
     }
 
@@ -154,6 +164,7 @@ class User extends Authenticatable
 
     public function verifyPhone($token, Carbon $now): void
     {
+        // dd($token);
         if ($token !== $this->phone_verify_token) {
             throw new \DomainException('Incorrect verify token.');
         }
@@ -180,8 +191,8 @@ class User extends Authenticatable
         $this->phone_auth = false;
         $this->saveOrFail();
     }
-	
-	
+
+
 	public function isPhoneVerified(): bool
     {
         return $this->phone_verified;
