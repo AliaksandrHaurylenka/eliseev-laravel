@@ -4,24 +4,24 @@ namespace App\UseCases\Profile;
 
 use App\Entity\User;
 use App\Http\Requests\Cabinet\PhoneVerifyRequest;
-//use App\Services\Sms\SmsSender;
+use App\Services\Sms\SmsSender;
 use Carbon\Carbon;
 
 class PhoneService
 {
-    // private $sms;
-    //
-    // public function __construct(SmsSender $sms)
-    // {
-    //     $this->sms = $sms;
-    // }
+    private $sms;
+    
+    public function __construct(SmsSender $sms)
+    {
+        $this->sms = $sms;
+    }
 
     public function request($id)
     {
         $user = $this->getUser($id);
 
         $token = $user->requestPhoneVerification(Carbon::now());
-        //$this->sms->send($user->phone, 'Phone verification token: ' . $token);
+        $this->sms->send($user->phone, 'Phone verification token: ' . $token);
     }
 
     public function verify($id, PhoneVerifyRequest $request)
