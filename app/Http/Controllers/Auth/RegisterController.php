@@ -34,8 +34,8 @@ class RegisterController extends Controller
     {
         $this->service->register($request);
 
-        flash('Check your email and click on the link to verify.')->success();
-        return redirect()->route('login');
+        //flash('Check your email and click on the link to verify.')->success();//для тестов выдает ошибку
+        return redirect()->route('login')->with('success', 'Check your email and click on the link to verify.');
     }
 
 
@@ -49,7 +49,7 @@ class RegisterController extends Controller
         try {
             $this->service->verify($user->id);
             flash('Your e-mail is verified. You can now login.')->success();
-            return redirect()->route('login');
+            return redirect()->route('login')->with('success', 'Your e-mail is verified. You can now login.');
         } catch (\DomainException $e) {
             flash($e->getMessage())->error();
             return redirect()->route('login');

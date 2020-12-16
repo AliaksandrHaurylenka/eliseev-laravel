@@ -45,10 +45,10 @@ class PhoneController extends Controller
         return redirect()->route('cabinet.profile.home');
     }
 
-    // public function auth()
-    // {
-    //     $this->service->toggleAuth(Auth::id());
-    //
-    //     return redirect()->route('cabinet.profile.home');
-    // }
+    public function auth()
+    {
+        $this->service->toggleAuth(Auth::id());
+    
+        return redirect()->route('cabinet.profile.home');
+    }
 }

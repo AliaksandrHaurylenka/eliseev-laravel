@@ -57,6 +57,29 @@ Breadcrumbs::register('cabinet.profile.phone', function (Crumbs $crumbs) {
     $crumbs->push('Phone', route('cabinet.profile.phone'));
 });
 
+// Cabinet Adverts
+
+Breadcrumbs::register('cabinet.adverts.index', function (Crumbs $crumbs) {
+    $crumbs->parent('cabinet.home');
+    $crumbs->push('Adverts', route('cabinet.adverts.index'));
+});
+
+Breadcrumbs::register('cabinet.adverts.create', function (Crumbs $crumbs) {
+    $crumbs->parent('adverts.index');
+    $crumbs->push('Create', route('cabinet.adverts.create'));
+});
+
+Breadcrumbs::register('cabinet.adverts.create.region', function (Crumbs $crumbs, Category $category, Region $region = null) {
+    $crumbs->parent('cabinet.adverts.create');
+    $crumbs->push($category->name, route('cabinet.adverts.create.region', [$category, $region]));
+});
+
+Breadcrumbs::register('cabinet.adverts.create.advert', function (Crumbs $crumbs, Category $category, Region $region = null) {
+    $crumbs->parent('cabinet.adverts.create.region', $category, $region);
+    $crumbs->push($region ? $region->name : 'All', route('cabinet.adverts.create.advert', [$category, $region]));
+});
+
+
 // Admin
 
 Breadcrumbs::register('admin.home', function (Crumbs $crumbs) {
