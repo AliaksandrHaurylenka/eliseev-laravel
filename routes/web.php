@@ -4,6 +4,9 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Auth::routes();
 
+Route::get('/login/phone', 'Auth\LoginController@phone')->name('login.phone');
+Route::post('/login/phone', 'Auth\LoginController@verify');
+
 Route::get('/verify/{token}', 'Auth\RegisterController@verify')->name('register.verify');
 
 // Route::get('/cabinet', 'Cabinet\HomeController@index')->name('cabinet');

@@ -142,7 +142,7 @@ class User extends Authenticatable
         $this->phone_verified = false;
         $this->phone_verify_token = null;
         $this->phone_verify_token_expire = null;
-        //$this->phone_auth = false;
+        $this->phone_auth = false;
         $this->saveOrFail();
     }
 

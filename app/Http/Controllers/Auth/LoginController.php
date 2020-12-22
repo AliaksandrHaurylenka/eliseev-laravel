@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Support\Facades\Auth;
+use App\Services\Sms\SmsSender;
 use Illuminate\Validation\ValidationException;
 use App\Entity\User;
 use App\Http\Requests\Auth\LoginRequest;
@@ -24,9 +25,12 @@ class LoginController extends Controller
     protected $redirectTo = '/home';
 
 
-    public function __construct()
+    private $sms;
+
+    public function __construct(SmsSender $sms)
     {
         $this->middleware('guest')->except('logout');
+        $this->sms = $sms;
     }
 
     public function showLoginForm()
