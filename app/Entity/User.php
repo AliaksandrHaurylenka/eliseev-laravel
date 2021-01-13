@@ -108,6 +108,12 @@ class User extends Authenticatable
     }
 
 
+    public function isModerator(): bool
+    {
+        return $this->role === self::ROLE_MODERATOR;
+    }
+
+
     public function isAdmin(): bool
     {
         return $this->role === self::ROLE_ADMIN;
@@ -130,7 +136,7 @@ class User extends Authenticatable
     {
         return [
             self::ROLE_USER => 'User',
-            //self::ROLE_MODERATOR => 'Moderator',
+            self::ROLE_MODERATOR => 'Moderator',
             self::ROLE_ADMIN => 'Admin',
         ];
     }
